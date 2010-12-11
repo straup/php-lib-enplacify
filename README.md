@@ -9,6 +9,13 @@ lib_emplacify is *designed* to be used in conjuction with [flamework](https://gi
 
 If you don't want to bother using flamework I've included just enough real and mock flamework code so that this code will run on its own. Take a look at the `test.php` file for details.
 
+To do:
+--
+
+* Fix outstanding bugs
+
+* Move the caching out of lib_enplacify and back in to the service specific libraries
+
 See also:
 --
 

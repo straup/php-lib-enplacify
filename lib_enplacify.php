@@ -4,8 +4,6 @@
 	# $Id$
 	#
 
-	# THIS IS A WORK IN PROGRESS (20101211/straup)
-
 	$GLOBALS['enplacify_services'] = array(
 
 		'chowhound' => array(
@@ -18,7 +16,6 @@
 			'uris' => array(
 				"/dplr\.it\/(eat|stay|explore)\/([^\/]+)/",
 				"/dopplr\:(eat|stay|explore)=(.+)$/",
-				# "dopplr\.com\/place\/(?:[^\/]+)\/(?:[^\/]+)\/(?:[^\/]+)\/(eat|stay|explore)\/([^\/]+)",
 			),
 		),
 
@@ -67,6 +64,10 @@
 				$service_func = "enplacify_{$service}_uri";
 
 				loadlib($service_lib);
+
+				# Note: the caching here is slated to be removed
+				# and (re) added to the service specific libraries
+				# (20101211/straup)
 
 				$cache_key = "enplacify_{$service}_" . md5($uri);
 				$cache = cache_get($cache_key);
