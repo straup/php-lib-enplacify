@@ -4,6 +4,9 @@
 	# $Id$
 	#
 
+	# TODO: put this in $GLOBALS['cfg'] and update everything
+	# else accordingly (20101211/straup)
+
 	$GLOBALS['enplacify_services'] = array(
 
 		'chowhound' => array(
@@ -23,6 +26,13 @@
 			'uris' => array(
 				"/flickr\.com\/photos\/(?:[^\/]+)\/(\d+)/",
 				# flickr short Uris
+			),
+			'machinetags' => array(
+				'dopplr' => array('eat', 'explore', 'stay'),
+				'foodspotting' => array('place'),
+				'foursquare' => array('venue'),
+				# 'osm' => array('node', 'way'),
+				'yelp' => array('biz'),
 			),
 		),
 
@@ -91,11 +101,12 @@
 
 	######################################################
 
-	function enplacify_machinetags(&$tags){
+	function enplacify_machinetags(&$tags, &$valid_machinetags){
 
 		return array( 'ok' => 0, 'error' => 'this does not work yet...' );
 
-		$valid_machinetags = array();
+		# TODO: do machinetag vs. plaintag filtering outside
+		# this function (20101211/straup)
 
 		foreach ($tags as $tag){
 
@@ -106,13 +117,18 @@
 			list($nspred, $value) = explode("=", $tag['raw'], 2);
 			list($ns, $pred) = explode(":", $nspred, 2);
 
-			if ((isset($valid_machinetags[$ns])) && ($valid_machinetags[$ns] == $pred)){
+			if (! isset($valid_machinetags[$ns])){
+				continue;
+			}
 
-				$rsp = enplacify_uri($tag['raw']);
+			if (! in_array($pred, $valid_machinetags[$ns])){
+				continue;
+			}
 
-				if ($rsp['ok']){
-					return $rsp;
-				}
+			$rsp = enplacify_uri($tag['raw']);
+
+			if ($rsp['ok']){
+				return $rsp;
 			}
 		}
 

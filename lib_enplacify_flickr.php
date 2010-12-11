@@ -41,7 +41,8 @@
 			$has_loc = 1;
 		}
 
-		$mt_rsp = enplacify_machinetags($rsp['photo']['tags']['tag']);
+		$valid_machinetags = $GLOBALS['enplacify_services']['flickr']['machinetags'];
+		$mt_rsp = enplacify_machinetags($rsp['photo']['tags']['tag'], $valid_machinetags);
 
 		if ($mt_rsp['ok']){
 			$place = array_merge($mt_rsp['place'], $place);
