@@ -41,15 +41,11 @@
 			$has_loc = 1;
 		}
 
-		if ($GLOBALS['cfg']['enable_feature_enplacify_by_machinetags']){
+		$mt_rsp = enplacify_machinetags($rsp['photo']['tags']['tag']);
 
-			loadlib("places_magic");
-			$magic_rsp = places_magic_guess_by_machinetags($rsp['photo']['tags']['tag']);
-
-			if ($magic_rsp['ok']){
-				$place = array_merge($magic_rsp['place'], $place);
-				$has_loc = 1;
-			}
+		if ($mt_rsp['ok']){
+			$place = array_merge($mt_rsp['place'], $place);
+			$has_loc = 1;
 		}
 
 		if (! $has_loc){
@@ -66,7 +62,7 @@
 			'ok' => 1,
 			'place' => $place,
 			'photo' => $rsp['photo'],
-		);	
+		);
 	}
 
 	######################################################

@@ -91,6 +91,36 @@
 
 	######################################################
 
+	function enplacify_machinetags(&$tags){
+
+		return array( 'ok' => 0, 'error' => 'this does not work yet...' );
+
+		$valid_machinetags = array();
+
+		foreach ($tags as $tag){
+
+			if (! $tag['machine_tag']){
+				continue;
+			}
+
+			list($nspred, $value) = explode("=", $tag['raw'], 2);
+			list($ns, $pred) = explode(":", $nspred, 2);
+
+			if ((isset($valid_machinetags[$ns])) && ($valid_machinetags[$ns] == $pred)){
+
+				$rsp = enplacify_uri($tag['raw']);
+
+				if ($rsp['ok']){
+					return $rsp;
+				}
+			}
+		}
+
+		return array( 'ok' => 0, 'error' => 'unable to enplacify machine tags' );
+	}
+
+	######################################################
+
 	# This is just a generic wrapper because most services only
 	# only need to have a single identifier teased out of a given
 	# URI. It's meant to be called *inside* of a service specific

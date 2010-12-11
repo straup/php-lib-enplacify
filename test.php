@@ -4,7 +4,7 @@
 	loadlib("enplacify");
 
 	# http://www.flickr.com/services/apps/create/apply/
-	# $GLOBALS['cfg']['flickr_apikey'] = '';
+	$GLOBALS['cfg']['flickr_apikey'] = '';
 
 	$to_emplacify = array(
 
