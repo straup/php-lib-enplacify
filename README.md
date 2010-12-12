@@ -14,31 +14,41 @@ Services that can be "enplacified":
 
 * Chowhound
 
-** http://www.chow.com/restaurants/919858/masala-cuisine
+    http://www.chow.com/restaurants/919858/masala-cuisine
 
 * Dopplr
 
-** dplr.it/eat/qhk0
-** dopplr:eat=qhk0
+    dplr.it/eat/qhk0
+
+    dopplr:eat=qhk0
 
 * Flickr
 
-** http://www.flickr.com/photos/cynk/5084197983/
+    http://www.flickr.com/photos/cynk/5084197983/
+
+* Foodspotting
+
+    http://www.foodspotting.com/places/1927
+
+    foodspotting:place=1927
 
 * foursquare
 
-** foursquare:venue=1088273
+    foursquare:venue=1088273
 
 * OpenStreetMap
 
-** osm:node=357612309
-** http://www.openstreetmap.org/browse/way/4799764
+    osm:node=357612309
+
+    http://www.openstreetmap.org/browse/way/4799764
 
 * Yelp
 
-** http://www.yelp.com/biz/smitten-ice-cream-san-francisco
-** http://www.yelp.com/biz/q20FkqFbmdOhfSEhaT5IHg
-** yelp:biz=q20FkqFbmdOhfSEhaT5IHg
+    http://www.yelp.com/biz/smitten-ice-cream-san-francisco
+
+    http://www.yelp.com/biz/q20FkqFbmdOhfSEhaT5IHg
+
+    yelp:biz=q20FkqFbmdOhfSEhaT5IHg
 
 See also:
 --
