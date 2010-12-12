@@ -113,7 +113,7 @@
 			'name' => $name,
 		);
 
-		return array(
+		$rsp = array(
 			'ok' => 1,
 			'place' => $place,
 		);
