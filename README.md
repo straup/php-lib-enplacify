@@ -55,4 +55,4 @@ See also:
 
 * [https://github.com/mncaudill/flickr-machinetag-geo](https://github.com/mncaudill/flickr-machinetag-geo)
 
-* [https://github.com/cjmartin/NYTimes-Flickr-Tagger](https://github.com/cjmartin/NYTimes-Flickr-Tagger_
+* [https://github.com/cjmartin/NYTimes-Flickr-Tagger](https://github.com/cjmartin/NYTimes-Flickr-Tagger)
