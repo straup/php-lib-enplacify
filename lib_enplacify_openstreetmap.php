@@ -20,21 +20,52 @@
 
 		list($place_type, $place_id) = $parts;
 
-		$rsp = enplacify_openstreetmap_get_place($place_type, $place_id);
+		$osm_rsp = enplacify_openstreetmap_get_place($place_type, $place_id);
 
-		if (! $rsp['ok']){
+		if (! $osm_rsp['ok']){
 			return $rsp;
 		}
 
-		$place = $rsp['place'];
+		$tags = $osm_rsp[$place_type];
+
+		$place = array(
+			'latitude' => $tags['latitude'],
+			'longitude' => $tags['longitude'],
+		);
+
+		# http://wiki.openstreetmap.org/wiki/Key:addr
+
+		$map = array(
+			'name' => 'name',
+			'addr:street' => 'address',
+			'addr:city' => 'city',
+			'phone' => 'phone',
+		);
+
+		foreach ($map as $theirs => $ours){
+
+			if (! isset($tags[$theirs])){
+				continue;
+			}
+
+			$place[ $ours ] = $tags[ $theirs ];
+		}
+
+		if ($tags['addr:housenumber'] && $place['address']){
+			$place['address'] = "{$tags['addr:housenumber']} {$place['address']}";
+		}
 
 		$place['derived_from'] = 'openstreetmap';
 		$place['derived_from_id'] = "{$place_type}:{$place_id}";
 
-		return array(
+		$rsp = array(
 			'ok' => 1,
 			'place' => $place,
+			'tags' => $tags,
 		);
+
+		var_dump($rsp);
+		return $rsp;
 	}
 
 	######################################################
@@ -94,6 +125,7 @@
 		}
 
 		$ima = $xml->documentElement->firstChild;
+
 		$lat = $ima->getAttribute('lat');
 		$lon = $ima->getAttribute('lon');
 
@@ -105,38 +137,14 @@
 			$tags[ $key ] = $value;
 		}
 
-		$place = array(
-			'latitude' => $lat,
-			'longitude' => $lon,
-		);
+		$tags['latitude'] = $lat;
+		$tags['longitude'] = $lon;
 
-		# http://wiki.openstreetmap.org/wiki/Key:addr
-
-		$map = array(
-			'name' => 'name',
-			'addr:street' => 'address',
-			'addr:city' => 'city',
-			'phone' => 'phone',
-		);
-
-		foreach ($map as $theirs => $ours){
-
-			if (! isset($tags[$theirs])){
-				continue;
-			}
-
-			$place[ $ours ] = $tags[ $theirs ];
-		}
-
-		if ($map['addr:housenumber'] && $place['address']){
-			$place['address'] = "{$map['addr:housenumber']} {$place['address']}";
-		}
-
-		return array(
+		$rsp = array(
 			'ok' => 1,
-			'place' => $place,
-			'tags' => $tags,
 		);
+
+		$rsp[ $place_type ] = $tags;
 
 		cache_set($cache_key, $rsp);
 		return $rsp;
