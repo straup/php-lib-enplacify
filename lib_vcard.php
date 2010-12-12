@@ -75,7 +75,7 @@
 			}
 
 			if ($kid->hasAttribute("class")){
-			
+
 				$class = $kid->getAttribute("class");
 
 				if (in_array($class, $GLOBALS['vcard_valid_classes'])){

@@ -4,65 +4,11 @@
 	# $Id$
 	#
 
-	# TODO: put this in $GLOBALS['cfg'] and update everything
-	# else accordingly (20101211/straup)
-
-	$GLOBALS['enplacify_services'] = array(
-
-		'chowhound' => array(
-			'uris' => array(
-				"/chow\.com\/restaurants\/([^\/]+)/",
-			),
-		),
-
-		'dopplr' => array(
-			'uris' => array(
-				"/dplr\.it\/(eat|stay|explore)\/([^\/]+)/",
-				"/dopplr\:(eat|stay|explore)=(.+)$/",
-			),
-		),
-
-		'flickr' => array(
-			'uris' => array(
-				"/flickr\.com\/photos\/(?:[^\/]+)\/(\d+)/",
-				# flickr short Uris
-			),
-			'machinetags' => array(
-				'dopplr' => array('eat', 'explore', 'stay'),
-				'foodspotting' => array('place'),
-				'foursquare' => array('venue'),
-				# 'osm' => array('node', 'way'),
-				'yelp' => array('biz'),
-			),
-		),
-
-		'foodspotting' => array(
-			'uris' => array(
-				"/foodspotting\.com\/places\/(\d+)/",
-				"/foodspotting\:place=(.+)$/",
-			),
-		),
-
-		'foursquare' => array(
-			'uris' => array(
-				"/foursquare\.com\/venue\/\d+/",
-				"/foursquare\:venue=(.+)$/",
-			),
-		),
-
-		'yelp' => array(
-			'uris' => array(
-				"/yelp\.com\/biz\/([^\/]+)/",
-				"/yelp\:biz=([^\/]+)/",
-			),
-		),
-	);
-
 	######################################################
 
 	function enplacify_uri($uri){
 
-		foreach ($GLOBALS['enplacify_services'] as $service => $data){
+		foreach ($GLOBALS['cfg']['enplacify'] as $service => $data){
 
 			foreach ($data['uris'] as $pattern){
 
@@ -90,7 +36,7 @@
 
 	function enplacify_machinetags(&$tags, &$valid_machinetags){
 
-		return array( 'ok' => 0, 'error' => 'this does not work yet...' );
+		# return array( 'ok' => 0, 'error' => 'this does not work yet...' );
 
 		# TODO: do machinetag vs. plaintag filtering outside
 		# this function (20101211/straup)
@@ -132,13 +78,13 @@
 
 	function enplacify_service_uri_to_id($service, $uri){
 
-		if (! isset($GLOBALS['enplacify_services'][ $service ])){
+		if (! isset($GLOBALS['cfg']['enplacify'][ $service ])){
 			return null;
 		}
 
 		$service_id = null;
 
-		$uris = $GLOBALS['enplacify_services'][ $service ]['uris'];
+		$uris = $GLOBALS['cfg']['enplacify'][ $service ]['uris'];
 
 		foreach ($uris as $pattern){
 

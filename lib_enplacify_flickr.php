@@ -41,7 +41,7 @@
 			$has_loc = 1;
 		}
 
-		$valid_machinetags = $GLOBALS['enplacify_services']['flickr']['machinetags'];
+		$valid_machinetags = $GLOBALS['cfg']['enplacify']['flickr']['machinetags'];
 		$mt_rsp = enplacify_machinetags($rsp['photo']['tags']['tag'], $valid_machinetags);
 
 		if ($mt_rsp['ok']){

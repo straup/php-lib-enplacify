@@ -44,7 +44,7 @@
 		$place_type = null;
 		$place_id = null;
 
-		$uris = $GLOBALS['enplacify_services']['dopplr']['uris'];
+		$uris = $GLOBALS['cfg']['enplacify']['dopplr']['uris'];
 
 		foreach ($uris as $pattern){
 

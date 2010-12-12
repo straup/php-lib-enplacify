@@ -1,7 +1,7 @@
 lib_emplacify
 --
 
-HEY LOOK! THIS ISN'T QUITE DONE YET!! REALLY. THERE ARE STILL BUGS.
+(this document is incomplete)
 
 Start here: [http://www.aaronland.info/weblog/2010/12/06/urmum/#enplacify](http://www.aaronland.info/weblog/2010/12/06/urmum/#enplacify)
 
@@ -9,12 +9,36 @@ lib_emplacify is *designed* to be used in conjuction with [flamework](https://gi
 
 If you don't want to bother using flamework I've included just enough real and mock flamework code so that this code will run on its own. Take a look at the `test.php` file for details.
 
-To do:
+Services that can be "enplacified":
 --
 
-* Fix outstanding bugs
+* Chowhound
 
-* Move the caching out of lib_enplacify and back in to the service specific libraries
+** http://www.chow.com/restaurants/919858/masala-cuisine
+
+* Dopplr
+
+** dplr.it/eat/qhk0
+** dopplr:eat=qhk0
+
+* Flickr
+
+** http://www.flickr.com/photos/cynk/5084197983/
+
+* foursquare
+
+** foursquare:venue=1088273
+
+* OpenStreetMap
+
+** osm:node=357612309
+** http://www.openstreetmap.org/browse/way/4799764
+
+* Yelp
+
+** http://www.yelp.com/biz/smitten-ice-cream-san-francisco
+** http://www.yelp.com/biz/q20FkqFbmdOhfSEhaT5IHg
+** yelp:biz=q20FkqFbmdOhfSEhaT5IHg
 
 See also:
 --
