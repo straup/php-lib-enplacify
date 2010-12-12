@@ -72,20 +72,45 @@
 		}
 
 		$url = "http://www.foodspotting.com/places/" . urlencode($place_id);
-		$rsp = http_get($url);
+		$http_rsp = http_get($url);
 
-		if (! $rsp['ok']){
-			return $rsp;
+		if (! $http_rsp['ok']){
+			return $http_rsp;
 		}
 
-		$rsp = vcard_parse_html($rsp['body']);
+		$rsp = vcard_parse_html($http_rsp['body']);
 
 		if ($rsp['ok']){
 
 			$place = $rsp['vcard'];
 			$place['id'] = $place_id;
 
-			if ($place['street-address'] && $place['locality'] && $place['region']){
+			# vcard has no specifics for latlon so just assume this is false and look for:
+			# <input id="place_latitude" name="place[latitude]" type="hidden" value="35.6633801" />
+			# <input id="place_longitude" name="place[longitude]" type="hidden" value="139.71029
+
+			$has_latlon = 0;
+
+			libxml_use_internal_errors(true);
+			$doc = new DOMDocument();
+
+			$html = mb_convert_encoding($http_rsp['body'], 'html-entities', 'utf-8');
+
+			if ($doc->loadHTML($html)){
+
+				foreach ($doc->getElementsByTagName('input') as $i){
+
+					$id = $i->getAttribute('id');
+
+					if (preg_match("/place_(latitude|longitude)/", $id, $m)){
+						$place[ $m[1] ] = $i->getAttribute('value');
+					}
+				}
+
+				$has_latlon = ($place['latitude'] && $place['longitude']) ? 1 : 0;
+			}
+
+			if ((! $has_latlon) && ($place['street-address'] && $place['locality'] && $place['region'])){
 
 				$q = "{$place['street-address']}, {$place['locality']} {$place['region']}";
 

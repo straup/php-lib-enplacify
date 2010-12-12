@@ -16,7 +16,9 @@
 
 	######################################################
 
-	function vcard_parse_html(&$html){
+	function vcard_parse_html($html){
+
+		$html = mb_convert_encoding($html, 'html-entities', 'utf-8');
 
 		libxml_use_internal_errors(true);
 
@@ -75,7 +77,7 @@
 			}
 
 			if ($kid->hasAttribute("class")){
-
+			
 				$class = $kid->getAttribute("class");
 
 				if (in_array($class, $GLOBALS['vcard_valid_classes'])){
