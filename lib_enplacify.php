@@ -52,8 +52,8 @@
 
 		'yelp' => array(
 			'uris' => array(
-				"/yelp\.com\/biz\/(?:[^\/]+)/",
-				"/yelp\:biz=(.+)$/",
+				"/yelp\.com\/biz\/([^\/]+)/",
+				"/yelp\:biz=([^\/]+)/",
 			),
 		),
 	);

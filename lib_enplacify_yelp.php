@@ -29,8 +29,8 @@
 	######################################################
 
 	function enplacify_yelp_uri($uri){
-		
-		$listing_id = enplacify_yelp_uri_to_id($url);
+
+		$listing_id = enplacify_yelp_uri_to_id($uri);
 
 		if (! $listing_id){
 			return array(
