@@ -12,37 +12,37 @@ If you don't want to bother using flamework I've included just enough real and m
 Services that can be "enplacified":
 --
 
-* Chowhound
+* **Chowhound**
 
     http://www.chow.com/restaurants/919858/masala-cuisine
 
-* Dopplr
+* **Dopplr**
 
     dplr.it/eat/qhk0
 
     dopplr:eat=qhk0
 
-* Flickr
+* **Flickr**
 
     http://www.flickr.com/photos/cynk/5084197983/
 
-* Foodspotting
+* **Foodspotting**
 
     http://www.foodspotting.com/places/1927
 
     foodspotting:place=1927
 
-* foursquare
+* **foursquare**
 
     foursquare:venue=1088273
 
-* OpenStreetMap
+* **OpenStreetMap**
 
     osm:node=357612309
 
     http://www.openstreetmap.org/browse/way/4799764
 
-* Yelp
+* **Yelp**
 
     http://www.yelp.com/biz/smitten-ice-cream-san-francisco
 
@@ -54,3 +54,5 @@ See also:
 --
 
 * [https://github.com/mncaudill/flickr-machinetag-geo](https://github.com/mncaudill/flickr-machinetag-geo)
+
+* [https://github.com/cjmartin/NYTimes-Flickr-Tagger](https://github.com/cjmartin/NYTimes-Flickr-Tagger_
