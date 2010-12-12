@@ -73,6 +73,13 @@
 
 	function enplacify_foursquare_get_venue($venue_id){
 
+		$cache_key = "enplacify_4sq_venue_{$venue_id}";
+		$cache = cache_get($cache_key);
+
+		if ($cache['ok']){
+			return $cache['data'];
+		}
+
 		$url = "https://api.foursquare.com/v1/venue.json?vid={$venue_id}";
 
 		$rsp = http_get($url);
@@ -88,6 +95,7 @@
 			'venue' => $json['venue'],
 		);
 
+		cache_set($cache_key, $rsp);
 		return $rsp;
 	}
 

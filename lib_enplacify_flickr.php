@@ -81,6 +81,13 @@
 			return array( 'ok' => 0, 'error' => 'No Flickr API key' );
 		}
 
+		$cache_key = "enplacify_flickr_photo_{$photo_id}";
+		$cache = cache_get($cache_key);
+
+		if ($cache['ok']){
+			return $cache['data'];
+		}
+
 		$url = "http://api.flickr.com/services/rest/?method=flickr.photos.getInfo";
 		$url .= "&photo_id={$photo_id}";
 		$url .= "&api_key={$GLOBALS['cfg']['flickr_apikey']}";
@@ -109,6 +116,7 @@
 			'photo' => $json['photo'],
 		);
 
+		cache_set($cache_key, $rsp);
 		return $rsp;
 	}
 

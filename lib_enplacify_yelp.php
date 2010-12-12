@@ -57,7 +57,7 @@
 		if (! $title){
 			$title = $rsp['listing']['fn org'];
 		}
-		
+
 		$place = array(
 			'latitude' => $rsp['listing']['latitude'],
 			'longitude' => $rsp['listing']['longitude'],
@@ -87,6 +87,13 @@
 
 	function enplacify_yelp_get_listing($listing_id){
 
+		$cache_key = "enplacify_yelp_listing_{$listing_id}";
+		$cache = cache_get($cache_key);
+
+		if ($cache['ok']){
+			return $cache['data'];
+		}
+
 		$url = "http://www.yelp.com/biz/" . urlencode($listing_id);
 
 		$headers = array();
@@ -114,6 +121,7 @@
 			$rsp = array( 'ok' => 1, 'listing' => $listing );
 		}
 
+		cache_set($cache_key, $rsp);
 		return $rsp;
 	}
 

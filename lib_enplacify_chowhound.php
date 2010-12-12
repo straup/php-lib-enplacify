@@ -13,44 +13,44 @@
 
 	function enplacify_chowhound_uri($uri){
 
-		$listing_id = enplacify_chowhound_uri_to_id($uri);
+		$restaurant_id = enplacify_chowhound_uri_to_id($uri);
 
-		if (! $listing_id){
+		if (! $restaurant_id){
 
 			return array(
 				'ok' => 0,
-				'error' => 'failed to recognize listing id',
+				'error' => 'failed to recognize restaurant id',
 			);
 		}
 
-		$rsp = enplacify_chowhound_get_listing($listing_id);
+		$rsp = enplacify_chowhound_get_restaurant($restaurant_id);
 
 		if (! $rsp['ok']){
 			return $rsp;
 		}
 
-		$title = $rsp['listing']['title'];
+		$title = $rsp['restaurant']['title'];
 
 		if (! $title){
-			$title = $rsp['listing']['fn org'];
+			$title = $rsp['restaurant']['fn org'];
 		}
-		
+
 		$place = array(
-			'latitude' => $rsp['listing']['latitude'],
-			'longitude' => $rsp['listing']['longitude'],
+			'latitude' => $rsp['restaurant']['latitude'],
+			'longitude' => $rsp['restaurant']['longitude'],
 			'name' => $title,
-			'phone' => $rsp['listing']['tel'],
-			'url' => $rsp['listing']['url'],
-			'address' => $rsp['listing']['street-address'],
+			'phone' => $rsp['restaurant']['tel'],
+			'url' => $rsp['restaurant']['url'],
+			'address' => $rsp['restaurant']['street-address'],
 			'derived_from' => 'chowhound',
-			'derived_from_id' => $listing_id,
+			'derived_from_id' => $restaurant_id,
 		);
 
 		return array(
 			'ok' => 1,
 			'place' => $place,
-			'listing' => $rsp['listing'],
-		);	
+			'restaurant' => $rsp['restaurant'],
+		);
 	}
 
 	######################################################
@@ -62,9 +62,16 @@
 
 	######################################################
 
-	function enplacify_chowhound_get_listing($listing_id){
+	function enplacify_chowhound_get_restaurant($restaurant_id){
 
-		$url = "http://www.chow.com/restaurants/" . urlencode($listing_id);
+		$cache_key = "enplacify_chowhound_restaurant_{$restaurant_id}";
+		$cache = cache_get($cache_key);
+
+		if ($cache['ok']){
+			return $cache['data'];
+		}
+
+		$url = "http://www.chow.com/restaurants/" . urlencode($restaurant_id);
 
 		$headers = array();
 		$more = array('follow_redirects' => 1);
@@ -82,18 +89,22 @@
 
 			$rsp = array(
 				'ok' => 0,
-				'error' => 'Failed to parse listing'
+				'error' => 'Failed to parse restaurant'
 			);
 		}
 
 		else {
 
-			$listing = array_merge($vcard_rsp['vcard'], $graph_rsp['graph']);
-			$listing['id'] = $listing_id;
+			$restaurant = array_merge($vcard_rsp['vcard'], $graph_rsp['graph']);
+			$restaurant['id'] = $restaurant_id;
 
-			$rsp = array( 'ok' => 1, 'listing' => $listing );
+			$rsp = array(
+				'ok' => 1,
+				'restaurant' => $restaurant
+			);
 		}
 
+		cache_set($cache_key, $rsp);
 		return $rsp;
 	}
 

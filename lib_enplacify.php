@@ -75,20 +75,7 @@
 
 				loadlib($service_lib);
 
-				# Note: the caching here is slated to be removed
-				# and (re) added to the service specific libraries
-				# (20101211/straup)
-
-				$cache_key = "enplacify_{$service}_" . md5($uri);
-				$cache = cache_get($cache_key);
-
-				if ($cache['ok']){
-					return $cache['data'];
-				}
-
 				$rsp = call_user_func_array($service_func, array($uri));
-
-				cache_set($cache_key, $rsp);
 				return $rsp;
 			}
 		}

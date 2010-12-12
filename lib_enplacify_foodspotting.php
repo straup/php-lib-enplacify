@@ -50,7 +50,7 @@
 		return array(
 			'ok' => 1,
 			'place' => $place,
-		);	
+		);
 	}
 
 	######################################################
@@ -63,6 +63,13 @@
 	######################################################
 
 	function enplacify_foodspotting_get_place($place_id){
+
+		$cache_key = "enplacify_foodspotting_place_{$place_id}";
+		$cache = cache_get($cache_key);
+
+		if ($cache['ok']){
+			return $cache['data'];
+		}
 
 		$url = "http://www.foodspotting.com/places/" . urlencode($place_id);
 		$rsp = http_get($url);
@@ -96,6 +103,7 @@
 			);
 		}
 
+		cache_set($cache_key, $rsp);
 		return $rsp;
 	}
 

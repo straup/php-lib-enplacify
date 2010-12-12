@@ -34,7 +34,7 @@
 		return array(
 			'ok' => 1,
 			'place' => $place,
-		);	
+		);
 	}
 
 	######################################################
@@ -65,6 +65,13 @@
 	######################################################
 
 	function enplacify_dopplr_get_place($place_type, $place_id){
+
+		$cache_key = "enplacify_dopplr_{$place_type}_{$place_id}";
+		$cache = cache_get($cache_key);
+
+		if ($cache['ok']){
+			return $cache['data'];
+		}
 
 		$url = "http://dplr.it/" . urlencode($place_type) . "/" . urlencode($place_id);
 
@@ -111,6 +118,7 @@
 			'place' => $place,
 		);
 
+		cache_set($cache_key, $rsp);
 		return $rsp;
 	}
 
