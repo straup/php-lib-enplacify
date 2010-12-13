@@ -38,8 +38,8 @@
 
 		'foursquare' => array(
 			'uris' => array(
-				"/foursquare\.com\/venue\/\d+/",
-				"/foursquare\:venue=(.+)$/",
+				"/foursquare\.com\/venue\/(\d+)/",
+				"/foursquare\:venue=(\d+)$/",
 			),
 		),
 
