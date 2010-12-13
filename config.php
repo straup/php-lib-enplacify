@@ -43,10 +43,12 @@
 			),
 		),
 
+		# TODO: make this work for ways...
+
 		'openstreetmap' => array(
 			'uris' => array(
-				"/openstreetmap.org\/browse\/(node|way)\/(\d+)/",
-				"/osm\:(node|way)=(\d+)$/",
+				"/openstreetmap.org\/browse\/(node)\/(\d+)/",
+				"/osm\:(node)=(\d+)$/",
 			),
 		),
 

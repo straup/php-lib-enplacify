@@ -95,6 +95,13 @@
 
 	######################################################
 
+	# This does not work for ways yet. For example:
+	# http://www.openstreetmap.org/browse/way/3101764
+	# http://www.openstreetmap.org/api/0.6/way/3101764
+	#
+	# How then to deal with linestrings versus polygons?
+	# (20101213/straup)
+
 	function enplacify_openstreetmap_get_place($place_type, $place_id){
 
 		$cache_key = "enplacify_openstreetmap_{$place_type}_{$place_id}";
